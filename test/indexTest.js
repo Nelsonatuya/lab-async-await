@@ -24,6 +24,12 @@ const dom = new JSDOM(html, {
 //Handle fetch
 const fetchPkg = 'node_modules/whatwg-fetch/dist/fetch.umd.js';
 dom.window.eval(fs.readFileSync(fetchPkg, 'utf-8'));
+dom.window.fetch = () => Promise.resolve({
+  json: () => Promise.resolve([{
+    title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+    body: 'quia et suscipit\nsuscipit'
+  }])
+});
 
 // Inject the transformed JavaScript into the virtual DOM
 const scriptElement = dom.window.document.createElement("script");
